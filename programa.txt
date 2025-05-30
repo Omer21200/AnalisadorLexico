@@ -1,1 +1,8 @@
-let x = 7.5.3;
+function saludo() {
+    let x = 10;
+    if (x > 5) {
+        return x;
+    } else {
+        return 0;
+    }
+}
