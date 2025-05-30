@@ -1,0 +1,62 @@
+function saludo() {
+    let x = 10;
+    if (x > 5) {
+        return x;
+    } else {
+        return 0;
+    }
+}
+
+
+function suma(a, b) {
+    return a + b;
+}
+
+if (true) {
+    x = 5;
+} else {
+    x = 0;
+}
+
+var x = @hola;
+
+x = 3.14 & 2;
+
+let x = 7.5.3;
+
+function test() {
+    let x = 3;
+    if (x >= 2) {
+        return x;
+    } else {
+        return @error;
+    }
+}
+
+function calcularOperaciones(a, b) {
+    let suma = a + b;
+    let resta = a - b;
+    let multiplicacion = a * b;
+    let division = a / b;
+
+    if (b == 0) {
+        return suma;
+    } else {
+        let total = suma + resta + multiplicacion + division;
+        return total;
+    }
+}
+
+function mostrarResultados() {
+    let resultado1 = calcularOperaciones(10, 5);
+    let resultado2 = calcularOperaciones(7, 0);
+
+    return resultado1;
+}
+
+function calcular(a, b) {
+    let suma = a + b;
+    let resta = a - b;
+    let multiplicacion = a * b;
+    return suma;
+}

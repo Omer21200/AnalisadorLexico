@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Autómata Léxico</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f4f8;
+            padding: 20px;
+        }
+
+        #canvas {
+            width: 1000px;
+            height: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+
+        .token-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            text-align: left;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .token {
+            margin: 0.3rem 0;
+            font-family: monospace;
+        }
+
+        .valido {
+            color: green;
+        }
+
+        .invalido {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Autómata Léxico</h2>
+    <div id="canvas"></div>
+
+    <div class="token-container" id="salida">Cargando tokens...</div>
+
+    <script>
+        const paper = Raphael("canvas", 1000, 400);
+
+        const estados = {
+            q0: paper.circle(100, 200, 30).attr({ fill: "#f0f0f0" }),
+            q1: paper.circle(300, 100, 30).attr({ fill: "#d0ffd0" }),
+            q2: paper.circle(300, 200, 30).attr({ fill: "#d0d0ff" }),
+            q3: paper.circle(300, 300, 30).attr({ fill: "#ffd0d0" }),
+            q4: paper.circle(500, 200, 30).attr({ fill: "#fff3cd" })
+        };
+
+        paper.text(100, 200, "q0");
+        paper.text(300, 100, "Identificador");
+        paper.text(300, 200, "Número");
+        paper.text(300, 300, "Operador");
+        paper.text(500, 200, "Delimitador");
+
+        paper.path("M130,200L270,120").attr({ "arrow-end": "classic-wide-long" });
+        paper.path("M130,200L270,200").attr({ "arrow-end": "classic-wide-long" });
+        paper.path("M130,200L270,280").attr({ "arrow-end": "classic-wide-long" });
+        paper.path("M330,200L470,200").attr({ "arrow-end": "classic-wide-long" });
+
+        fetch('tokens.json')
+          .then(response => response.json())
+          .then(data => {
+              const salida = document.getElementById("salida");
+              salida.innerHTML = "";
+              data.forEach(tok => {
+                  const div = document.createElement("div");
+                  div.className = "token " + (tok.valido ? "valido" : "invalido");
+                  div.textContent = `[Línea ${tok.linea}] ${tok.valido ? "✅" : "❌"} ${tok.token} → ${tok.tipo}`;
+                  salida.appendChild(div);
+              });
+          })
+          .catch(error => {
+              document.getElementById("salida").textContent = "❌ No se encontró tokens.json. Ejecuta primero lexer.js";
+          });
+    </script>
+</body>
+</html>
